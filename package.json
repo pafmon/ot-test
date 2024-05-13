@@ -1,0 +1,24 @@
+{
+  "name": "ot-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.mjs",
+    "pretest": "npm start &",
+    "test": "wait-on http://localhost:3000/api/v1/pets && npm run sendRequests",
+    "posttest": "kill `ps -uax | grep \"node index\" | grep -v \"grep\" | grep -v \"sh\" | awk '{print $2}'`",
+    "sendRequests": "node node_modules/newman/bin/newman.js run request-collection.json -e request-environment.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@oas-tools/oas-telemetry": "^0.1.10",
+    "express": "^4.19.2",
+    "newman": "^6.1.2"
+  },
+  "devDependencies": {
+    "wait-on": "^7.2.0"
+  }
+}
